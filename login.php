@@ -15,8 +15,8 @@ $connection = new mysqli(
 
 
 print_r($connection);
+
 echo ($connection>connect_error);
 
 if ($connection>connect_error) die($connection->connect_error);
 
-echo (connect_error);
