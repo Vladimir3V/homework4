@@ -1,11 +1,14 @@
 <?php
 
+require_once 'connection.php';
 /**
  * Created by PhpStorm.
  * User: vladimirvahrusev
  * Date: 01.09.16
  * Time: 18:38
  */
+
+
 class DB_Operate
 {
 
@@ -14,6 +17,13 @@ class DB_Operate
     public $password = "password";
     public $db_name = "database";
 
+    /**
+     * DB_Operate constructor.
+     * @param $host
+     * @param $login
+     * @param $password
+     * @param $database
+     */
     function __construct($host, $login, $password, $database)
     {
         $this->db_host = $host;
@@ -21,6 +31,10 @@ class DB_Operate
         $this->db_pass = $password;
         $this->db_name = $database;
     }
+
+    /**
+     * ПРоверяет есть ли база, если нет создает
+     */
     public function db_chek_make()
     {
         $mysqli = new mysqli($this->db_host, $this->db_login, $this->db_pass);
@@ -46,7 +60,7 @@ class DB_Operate
                          about VARCHAR(1000),
                          avatar INT UNSIGNED
                          )
-                         DEFAULT CHARSET = utf8 AUTO_INCREMENT = 1"
+                         DEFAULT CHARSET = utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT = 1"
                 );
                 $mysqli->query(
                     "CREATE TABLE photos (

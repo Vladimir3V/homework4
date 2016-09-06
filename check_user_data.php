@@ -1,23 +1,36 @@
 <?php
 
+require_once 'connection.php';
 /**
  * Created by PhpStorm.
  * User: vladimirvahrusev
  * Date: 03.09.16
  * Time: 18:21
  */
+
+
 class Check_User_Data
 {
     public $user_login    = 'login';
     public $user_password = 'password';
 
+    /**
+     * ПРоверяет пользователя и пароль
+     * @param $user_login
+     * @param $user_password
+     */
     public function check_login_password($user_login, $user_password)
     {
         if (isset($user_login) || isset($user_password)) {
             if (empty($user_login) || empty($user_password)) {
                 echo "Данные введены неверно, пройдите регистрацию";
             } else {
-                $db = new mysqli("localhost", "root", "root", 'uzzerz');
+                $db = new mysqli(
+                    $GLOBALS['host'],
+                    $GLOBALS['login'],
+                    $GLOBALS['password'],
+                    $GLOBALS['db_name']
+                );
                 if ($db->connect_errno) {
                     exit("ошибка подключения");
                 }
@@ -40,6 +53,5 @@ class Check_User_Data
             }
         }
     }
-
 }
 

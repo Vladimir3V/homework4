@@ -1,11 +1,13 @@
 <?php
 
+require_once 'connection.php';
 /**
  * Created by PhpStorm.
  * User: vladimirvahrusev
  * Date: 04.09.16
  * Time: 17:13
  */
+
 class Add_User_Info
 {
     public $user_login     = 'login';
@@ -15,6 +17,12 @@ class Add_User_Info
     public $user_age       = 'age';
     public $user_about     = 'about';
 
+    /**
+     * Function adds lofin and password from registration form
+     * @param string $user_login it is login
+     * @param string $user_password
+     * @param string $user_password2
+     */
     public function add_login_password($user_login, $user_password, $user_password2)
     {
         if ($user_password == $user_password2) {
@@ -23,7 +31,12 @@ class Add_User_Info
                     echo "Данные введены неверно";
                 } else {
                     $user_login= strip_tags($user_login);
-                    $db = new mysqli("localhost", "root", "root", 'uzzerz');
+                    $db = new mysqli(
+                        $GLOBALS['host'],
+                        $GLOBALS['login'],
+                        $GLOBALS['password'],
+                        $GLOBALS['db_name']
+                    );
                     if ($db->connect_errno) {
                         echo "ошибка подключения к БР";
                     }
@@ -49,6 +62,15 @@ class Add_User_Info
         }
     }
 
+    /**
+     * Function adds data about user to date base
+     * @param $username
+     * @param $password
+     * @param $name
+     * @param $age
+     * @param $about
+     * @param $id
+     */
     public function add_name_age_about(
         $username,
         $password,
@@ -59,19 +81,34 @@ class Add_User_Info
     ) {
         if (isset($name) || isset($age) || isset($about)) {
             if (empty($name) || empty($age) || empty($about)) {
-                echo 'bbbbbbbbbbbbbbbbbbbb';
             } else {
                 $username = strip_tags($username);
                 $password = strip_tags($password);
                 $name   = strip_tags($name);
                 $age    = strip_tags($age);
                 $about  = strip_tags($about);
-                $db = new mysqli("localhost", "root", "root", 'uzzerz');
+                $db = new mysqli(
+                    $GLOBALS['host'],
+                    $GLOBALS['login'],
+                    $GLOBALS['password'],
+                    $GLOBALS['db_name']
+                );
+                if (!$db->set_charset("utf8")) {
+                    printf(
+                        "Ошибка при загрузке набора символов utf8: %s\n",
+                        $db->error
+                    );
+                }
+
                 if ($db->connect_errno) {
                     echo "ошибка подключения к БР";
                 } else {
                     $sql = " UPDATE users
-                          SET username = ?, password = ?, name = ?, age = ?, about = ? 
+                          SET username = ?, 
+                          password = ?, 
+                          name = ?, 
+                          age = ?, 
+                          about = ? 
                           WHERE id = ?";
                     if ($stmt = $db->prepare($sql)) {
                         $stmt->bind_param(
@@ -85,7 +122,6 @@ class Add_User_Info
                         );
                         $stmt->execute();
                     }
-
                 }
             }
         }

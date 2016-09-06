@@ -29,22 +29,34 @@ $a->get_info($_SESSION['id']);
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF8">
     <title>Личный кабинет</title>
 </head>
 <body>
 <div>
-    <div >
+    <div>
         <form action="" method="post">
             <input type="submit"  value="Покниуть станицу" name="Logout">
         </form>
         <form action="" method="post">
-            <p>Логин: <input title="" type="text" name="Username" value="<?php echo $_SESSION['username'] ?>" /></p>
-            <p>Пароль: <input title="" type="text" name="Password" value="<?php echo $_SESSION['password'] ?>" /></p>
-            <p>Имя: <input title="" type="text" name="Name" value="<?php echo $_SESSION['name'] ?>" /></p>
-            <p>Возраст: <input title="" type="number" name="Age" value="<?php echo $_SESSION['age'] ?>" /></p>
+            <p>Логин: <input title="" type="text" name="Username" value="
+            <?php echo $_SESSION['username'] ?>"/>
+            </p>
+            <p>Пароль: <input title="" type="text" name="Password" value="
+            <?php echo $_SESSION['password'] ?>" />
+            </p>
+            <p>Имя: <input title="" type="text" name="Name" value="
+            <?php echo $_SESSION['name'] ?>" />
+            </p>
+            <p>Возраст: <input title="" type="number" name="Age" value="
+            <?php echo $_SESSION['age'] ?>" />
+            </p>
             <p>О себе:</p>
-            <p><textarea name="About" id="" cols="30" rows="10"><?php echo $_SESSION['about'] ?></textarea></p>
+            <p>
+                <textarea name="About" id="" cols="30" rows="10">
+                    <?php echo $_SESSION['about'] ?>
+                </textarea>
+            </p>
             <input type="submit" name="Login" value="Обновить данные" />
         </form>
         <br /><br />
@@ -61,15 +73,14 @@ $a->get_info($_SESSION['id']);
             <input type="submit" name="nameupdae" value="Обновить имя файла" />
         </form>
 
-        </form>
         <br />
         <p> Удалить файл</p>
         <form action="" method="post">
-            <p>Имя файла для удаления: <input title="" type="text" name="DelFile" /></p>
+            <p>Имя файла для удаления:
+                <input title="" type="text" name="DelFile" />
+            </p>
             <input type="submit" name="deldel" value="Удалить файл" />
         </form>
-
-
     </div>
 </div>
 

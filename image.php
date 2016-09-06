@@ -1,5 +1,5 @@
 <?php
-
+require_once 'connection.php';
 /**
  * Created by PhpStorm.
  * User: vladimirvahrusev
@@ -8,12 +8,21 @@
  */
 class Image
 {
-    public function delete_image ($imagename)
+    /**
+     * Удаляет файл
+     * @param $imagename
+     */
+    public function delete_image($imagename)
     {
         if (isset($imagename)) {
             if (empty($imagename)) {
             } else {
-                $db = new mysqli("localhost", "root", "root", 'uzzerz');
+                $db = new mysqli(
+                    $GLOBALS['host'],
+                    $GLOBALS['login'],
+                    $GLOBALS['password'],
+                    $GLOBALS['db_name']
+                );
                 if ($db->connect_errno) {
                     exit("ошибка подключения к БД, повторите запрос");
                 }
@@ -27,13 +36,24 @@ class Image
             }
         }
     }
+
+    /**
+     * Переименовывает файл
+     * @param $oldname
+     * @param $newname
+     */
     public function rename_file($oldname, $newname)
     {
         if (isset($oldname) || isset($newname)) {
             if (empty($oldname) || empty($newname)) {
 
             } else {
-                $db = new mysqli("localhost", "root", "root", 'uzzerz');
+                $db = new mysqli(
+                    $GLOBALS['host'],
+                    $GLOBALS['login'],
+                    $GLOBALS['password'],
+                    $GLOBALS['db_name']
+                );
                 if ($db->connect_errno) {
                     exit("ошибка подключения к БД, повторите запрос");
                 }
@@ -60,6 +80,13 @@ class Image
             }
         }
     }
+
+    /**
+     *Функция добавляет изображение в папку и в базу
+     * @param $img
+     * @param $id
+     * @param $postic
+     */
     public function add_image_to_folder($img, $id, $postic)
     {
         if (isset($postic)) {
@@ -78,7 +105,7 @@ class Image
                 }
 
                 if (file_exists($target_file)) {
-                    echo "Такой файл уже есть <br>";
+                    echo "Такой файл уже есть <br><br>";
                     $status = false;
                 }
 
@@ -91,12 +118,8 @@ class Image
                     $status = false;
                 }
 
-                var_dump($check);
                 $im = imagecreatetruecolor($check [0], $check [1]);
-                var_dump($im);
                 $ooo = imagejpeg($im, $target_file, 100);
-                var_dump($ooo);
-
                 if ($status) {
                     if (move_uploaded_file(
                         $img["img"]["tmp_name"],
@@ -106,12 +129,25 @@ class Image
                         echo
                             "Файл "
                             . basename($img["img"]["name"])
-                            . " был загружен <br>";
+                            . " был загружен <br><br>";
 
-                        $db = new mysqli("localhost", "root", "root", 'uzzerz');
+                        $db = new mysqli(
+                            $GLOBALS['host'],
+                            $GLOBALS['login'],
+                            $GLOBALS['password'],
+                            $GLOBALS['db_name']
+                        );
                         if ($db->connect_errno) {
                             exit("ошибка подключения к БД, повторите запрос");
                         }
+                        if (!$db->set_charset("utf8")) {
+                            printf(
+                                "Ошибка при загрузке набора символов utf8: %s\n",
+                                $db->error
+                            );
+                        }
+
+
                         $sql = "INSERT INTO photos (user_id, file) VALUES(?, ?)";
                         $stmt = $db->prepare($sql);
                         $stmt->bind_param('is', $id, $img['img']['name']);

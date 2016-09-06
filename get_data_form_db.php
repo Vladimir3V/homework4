@@ -1,15 +1,31 @@
 <?php
 
+require_once 'connection.php';
 /**
  * Created by PhpStorm.
  * User: vladimirvahrusev
  * Date: 05.09.16
  * Time: 22:18
  */
+
 class Get_Data_Form_DB
 {
-    public function get_info ($u_id) {
-        $db = new mysqli("localhost", "root", "root", 'uzzerz');
+    /**
+     * ПОлучает данные о юзере из базы
+     * @param $u_id
+     */
+    public function get_info($u_id)
+    {
+        $db = new mysqli(
+            $GLOBALS['host'],
+            $GLOBALS['login'],
+            $GLOBALS['password'],
+            $GLOBALS['db_name']
+        );
+        if (!$db->set_charset("utf8")) {
+            printf("Ошибка при загрузке набора символов utf8: %s\n", $db->error);
+        }
+
         if ($db->connect_errno) {
             exit("ошибка подключения");
         }
