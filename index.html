@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <div>
+        <form action="" method="post">
+            <div> Login     <input title="" type="text" name="u_login">     </div>
+            <div> Password  <input title="" type="text" name="u_password">  </div>
+            <button type="submit" id="button" > Авторизация </button>
+            <a href="register.html" > Регистрация </a>
+        </form>
+    </div>
+
+<script src="https://yastatic.net/jquery/3.1.0/jquery.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#button').on('click', function () {
+            $.ajax({
+                type : 'post',
+                url  : 'first.php',
+                data : {
+                    login : $('input[name=u_login]').val(),
+                    password : $('input[name=u_password]').val()
+                },
+                success : function (data) {
+
+                    console.log(data);
+
+                    if (data == 1) {
+                        window.location.href='main2.php';
+                    }  else {
+                        alert(data);
+                    }
+                }
+            })
+            return false;
+        });
+    });
+</script>
+
+</body>
+</html>
