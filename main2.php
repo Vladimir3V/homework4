@@ -93,7 +93,7 @@ if (!isset($_SESSION['id'])) {
 }
 
 $c = new Image();
-$c->add_image_to_folder($_FILES, $_SESSION['id'],$_POST['loadimage']);
+$c->add_image_to_folder($_FILES, $_SESSION['id'], $_POST['loadimage']);
 
 $c->rename_file($_POST['OldName'], $_POST['NewName']);
 
