@@ -10,7 +10,7 @@ require_once 'db_operate.php';
 require_once 'check_user_data.php';
 require_once 'add_user_info.php';
 
-$a = new DB_Operate('localhost', 'root', 'root', 'uzzerz');
+$a = new DB_Operate('localhost', 'root', 'y2uDk7L3IP', 'uzzerz');
 $a->db_chek_make();
 
 

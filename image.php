@@ -1,5 +1,5 @@
 <?php
-require_once 'connection.php';
+require_once 'Connection.php';
 /**
  * Created by PhpStorm.
  * User: vladimirvahrusev

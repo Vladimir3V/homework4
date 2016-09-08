@@ -111,9 +111,10 @@ $c->rename_file($_POST['OldName'], $_POST['NewName']);
 $c->delete_image($_POST['DelFile']);
 
 echo 'Список файлов в папке с фотографиями: <br>';
-$dir = scandir('photos/');
+$dir = scandir('photos/');//возвращает false об этом не подумал
+
 foreach ($dir as $key) {
-    if ($key == '.' || $key == '..' ) {
+    if ($key == '.' || $key == '..' ) {//psr-2
     } else {
         echo $key, '<br>';
     }

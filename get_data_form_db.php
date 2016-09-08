@@ -1,20 +1,20 @@
 <?php
 
-require_once 'connection.php';
+require_once 'Connection.php';
 /**
  * Created by PhpStorm.
  * User: vladimirvahrusev
  * Date: 05.09.16
  * Time: 22:18
  */
-
+//по psr-2 класы пишутся так GetDataFormDB
 class Get_Data_Form_DB
 {
     /**
      * ПОлучает данные о юзере из базы
      * @param $u_id
      */
-    public function get_info($u_id)
+    public function get_info($u_id)//методы тоже
     {
         $db = new mysqli(
             $GLOBALS['host'],

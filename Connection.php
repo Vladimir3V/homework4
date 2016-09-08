@@ -9,7 +9,7 @@
 
 $GLOBALS ['host']      = "localhost";
 $GLOBALS ['login']     = "root";
-$GLOBALS ['password']  = "root";
+$GLOBALS ['password']  = "y2uDk7L3IP";
 $GLOBALS ['db_name']   = 'uzzerz';
 
 
