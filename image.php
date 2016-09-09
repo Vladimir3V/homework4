@@ -9,10 +9,19 @@ require_once 'Connection.php';
 class Image
 {
     /**
+     *  Проверяем сущетование папки/ если нет создаем
+     */
+    public function createFolder()
+    {
+        if (file_exists('./photos') == false) {
+            mkdir('./photos', 0777);
+        }
+    }
+    /**
      * Удаляет файл
      * @param $imagename
      */
-    public function delete_image($imagename)
+    public function deleteImage($imagename)
     {
         if (isset($imagename)) {
             if (empty($imagename)) {
@@ -25,6 +34,12 @@ class Image
                 );
                 if ($db->connect_errno) {
                     exit("ошибка подключения к БД, повторите запрос");
+                }
+                if (!$db->set_charset("utf8")) {
+                    printf(
+                        "Ошибка при загрузке набора символов utf8: %s\n",
+                        $db->error
+                    );
                 }
                 $sql = "DELETE FROM photos WHERE file = ?";
                 $stmt = $db->prepare($sql);
@@ -42,8 +57,10 @@ class Image
      * @param $oldname
      * @param $newname
      */
-    public function rename_file($oldname, $newname)
+    public function renameFile($oldname, $newname)
     {
+        var_dump($oldname);
+        var_dump($newname);
         if (isset($oldname) || isset($newname)) {
             if (empty($oldname) || empty($newname)) {
 
@@ -57,11 +74,18 @@ class Image
                 if ($db->connect_errno) {
                     exit("ошибка подключения к БД, повторите запрос");
                 }
+                if (!$db->set_charset("utf8")) {
+                    printf(
+                        "Ошибка при загрузке набора символов utf8: %s\n",
+                        $db->error
+                    );
+                }
 
                 $res = $db->query(
                     "select id from photos where file = '$oldname' "
                 );
                 $record = $res->fetch_assoc();
+                var_dump($record);
 
                 $target_dir = "photos/";
                 $target_old = $target_dir . basename($oldname);
@@ -87,7 +111,7 @@ class Image
      * @param $id
      * @param $postic
      */
-    public function add_image_to_folder($img, $id, $postic)
+    public function addImageToFolder($img, $id, $postic)
     {
         if (isset($postic)) {
             $target_dir = "photos/";
@@ -147,14 +171,12 @@ class Image
                             );
                         }
 
-
                         $sql = "INSERT INTO photos (user_id, file) VALUES(?, ?)";
                         $stmt = $db->prepare($sql);
                         $stmt->bind_param('is', $id, $img['img']['name']);
                         $stmt->execute();
                         $stmt->close();
                         $db->close();
-
                     }
                 }
             }

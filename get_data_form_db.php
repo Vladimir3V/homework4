@@ -8,13 +8,13 @@ require_once 'Connection.php';
  * Time: 22:18
  */
 //по psr-2 класы пишутся так GetDataFormDB
-class Get_Data_Form_DB
+class GetDataFormDB
 {
     /**
      * ПОлучает данные о юзере из базы
      * @param $u_id
      */
-    public function get_info($u_id)//методы тоже
+    public function getInfo($u_id)//методы тоже
     {
         $db = new mysqli(
             $GLOBALS['host'],
@@ -39,6 +39,4 @@ class Get_Data_Form_DB
         $_SESSION ['age']      = $record ['age'];
         $_SESSION ['about']    = $record ['about'];
     }
-
-
 }

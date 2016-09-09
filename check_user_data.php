@@ -9,7 +9,7 @@ require_once 'Connection.php';
  */
 
 
-class Check_User_Data
+class CheckUserData
 {
     public $user_login    = 'login';
     public $user_password = 'password';
@@ -19,7 +19,7 @@ class Check_User_Data
      * @param $user_login
      * @param $user_password
      */
-    public function check_login_password($user_login, $user_password)
+    public function checkLoginPassword($user_login, $user_password)
     {
         if (isset($user_login) || isset($user_password)) {
             if (empty($user_login) || empty($user_password)) {
@@ -49,7 +49,6 @@ class Check_User_Data
                 } else {
                     echo ' Что-то пошло не так, может нужно зарегистрироваться';
                 }
-
             }
         }
     }

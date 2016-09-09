@@ -32,12 +32,17 @@
                         console.log(data);
 
                         if (data == 2) {
+                            setTimeout(function() {
+                                alert('Регитсрация прошла успешно');
+                            }, 1);
                             window.location.href='index.html';
-                        }  else {
+
+
+                        } else {
                             alert(data);
                         }
                     }
-                })
+                });
                 return false;
             });
         });

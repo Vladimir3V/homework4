@@ -9,9 +9,10 @@ session_start();
 require_once 'db_operate.php';
 require_once 'check_user_data.php';
 require_once 'add_user_info.php';
+require_once 'Connection.php';
+require_once 'second.php';
 
-$a = new DB_Operate('localhost', 'root', 'y2uDk7L3IP', 'uzzerz');
-$a->db_chek_make();
+
 
 
 if (empty($_POST)) {
@@ -22,16 +23,15 @@ if (empty($_POST)) {
         $user_password  = $_POST['reg_password'];
         $user_password2 = $_POST['reg_password2'];
 
-        $b = new Add_User_Info();
-        $b->add_login_password($user_login, $user_password, $user_password2);
+        $b = new AddUserInfo();
+        $b->addLoginPassword($user_login, $user_password, $user_password2);
 
     } elseif (isset($_POST['login'])) {
         $user_login     = $_POST['login'];
         $user_password  = $_POST['password'];
 
-        $b = new Check_User_Data();
-        $b->check_login_password($user_login, $user_password);
+        $b = new CheckUserData();
+        $b->checkLoginPassword($user_login, $user_password);
     }
 }
 
-?>

@@ -8,7 +8,7 @@ require_once 'Connection.php';
  * Time: 17:13
  */
 
-class Add_User_Info
+class AddUserInfo
 {
     public $user_login     = 'login';
     public $user_password  = 'password';
@@ -23,7 +23,7 @@ class Add_User_Info
      * @param string $user_password
      * @param string $user_password2
      */
-    public function add_login_password($user_login, $user_password, $user_password2)
+    public function addLoginPassword($user_login, $user_password, $user_password2)
     {
         if ($user_password == $user_password2) {
             if (isset($user_login) || isset($user_password)) {
@@ -53,7 +53,6 @@ class Add_User_Info
                             VALUES ('$user_login', '$user_password')"
                         );
                         echo 2;
-                        echo "Регистрация прошла успешно";
                     }
                 }
             }
@@ -71,7 +70,7 @@ class Add_User_Info
      * @param $about
      * @param $id
      */
-    public function add_name_age_about(
+    public function addNameAgeAbout(
         $username,
         $password,
         $name,

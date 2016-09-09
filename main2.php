@@ -10,8 +10,8 @@ require_once 'get_data_form_db.php';
 require_once 'add_user_info.php';
 require_once 'image.php';
 
-$b = new Add_User_Info;
-$b->add_name_age_about(
+$b = new AddUserInfo;
+$b->addNameAgeAbout(
     $_POST['Username'],
     $_POST['Password'],
     $_POST['Name'],
@@ -19,8 +19,8 @@ $b->add_name_age_about(
     $_POST['About'],
     $_SESSION ['id']
 );
-$a = new Get_Data_Form_DB();
-$a->get_info($_SESSION['id']);
+$a = new GetDataFormDB();
+$a->getInfo($_SESSION['id']);
 
 
 
@@ -39,22 +39,45 @@ $a->get_info($_SESSION['id']);
             <input type="submit"  value="Покниуть станицу" name="Logout">
         </form>
         <form action="" method="post">
-            <p>Логин: <input title="" type="text" name="Username" value="
-            <?php echo $_SESSION['username'] ?>"/>
+            <p>
+                Логин:
+                <input
+                    title=""
+                    type="text"
+                    name="Username"
+                    value="<?php echo $_SESSION['username'] ?>"/>
             </p>
-            <p>Пароль: <input title="" type="text" name="Password" value="
-            <?php echo $_SESSION['password'] ?>" />
+            <p>Пароль:
+                <input
+                    title=""
+                    type="text"
+                    name="Password"
+                    value="<?php echo $_SESSION['password'] ?>" />
             </p>
-            <p>Имя: <input title="" type="text" name="Name" value="
-            <?php echo $_SESSION['name'] ?>" />
+            <p>
+                Имя:
+                <input
+                    title=""
+                    type="text"
+                    name="Name"
+                    value="<?php echo $_SESSION['name'] ?>" />
             </p>
-            <p>Возраст: <input title="" type="number" name="Age" value="
-            <?php echo $_SESSION['age'] ?>" />
+            <p>
+                Возраст:
+                <input title=""
+                       type="number"
+                       name="Age"
+                       value="<?php echo $_SESSION['age'] ?>" />
             </p>
             <p>О себе:</p>
             <p>
-                <textarea name="About" id="" cols="30" rows="10">
-                    <?php echo $_SESSION['about'] ?>
+                <textarea
+                    title=""
+                    name="About"
+                    id=""
+                    cols="30"
+                    rows="10"
+                ><?php echo $_SESSION['about'] ?>
                 </textarea>
             </p>
             <input type="submit" name="Login" value="Обновить данные" />
@@ -93,28 +116,27 @@ if (isset($_POST["Logout"])) {
     unset($_SESSION["id"]);
     session_destroy();
     echo '<script type="text/javascript">
-                window.location = "index.html"
-                </script>';
+              window.location = "index.html"
+          </script>';
 }
 
 if (!isset($_SESSION['id'])) {
     echo '<script type="text/javascript">
-                window.location = "index.html"
-                </script>';
+              window.location = "index.html"
+          </script>';
 }
 
 $c = new Image();
-$c->add_image_to_folder($_FILES, $_SESSION['id'], $_POST['loadimage']);
-
-$c->rename_file($_POST['OldName'], $_POST['NewName']);
-
-$c->delete_image($_POST['DelFile']);
+$c->createFolder();
+$c->addImageToFolder($_FILES, $_SESSION['id'], $_POST['loadimage']);
+$c->renameFile($_POST['OldName'], $_POST['NewName']);
+$c->deleteImage($_POST['DelFile']);
 
 echo 'Список файлов в папке с фотографиями: <br>';
-$dir = scandir('photos/');//возвращает false об этом не подумал
+$dir = scandir('photos/');//возвращает false об этом не подумал --- Да, не подумал / Попарвил
 
 foreach ($dir as $key) {
-    if ($key == '.' || $key == '..' ) {//psr-2
+    if ($key == '.' || $key == '..') {//psr-2 - поправил
     } else {
         echo $key, '<br>';
     }

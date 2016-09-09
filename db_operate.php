@@ -9,7 +9,7 @@ require_once 'Connection.php';
  */
 
 
-class DB_Operate
+class DBOperate
 {
 
     public $host = "host";
@@ -35,7 +35,7 @@ class DB_Operate
     /**
      * ПРоверяет есть ли база, если нет создает
      */
-    public function db_chek_make()
+    public function dbChekMake()
     {
         $mysqli = new mysqli($this->db_host, $this->db_login, $this->db_pass);
         if ($mysqli->connect_errno) {
@@ -60,7 +60,9 @@ class DB_Operate
                          about VARCHAR(1000),
                          avatar INT UNSIGNED
                          )
-                         DEFAULT CHARSET = utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT = 1"
+                         DEFAULT CHARSET = utf8 
+                         COLLATE=utf8_unicode_ci 
+                         AUTO_INCREMENT = 1"
                 );
                 $mysqli->query(
                     "CREATE TABLE photos (

@@ -7,8 +7,8 @@
 <body>
     <div>
         <form action="" method="post">
-            <div> Login     <input title="" type="text" name="u_login">     </div>
-            <div> Password  <input title="" type="text" name="u_password">  </div>
+            <div> Логин     <input title="" type="text" name="u_login">     </div>
+            <div> Пароль  <input title="" type="text" name="u_password">  </div>
             <button type="submit" id="button" > Авторизация </button>
             <a href="register.html" > Регистрация </a>
         </form>
@@ -26,16 +26,15 @@
                     password : $('input[name=u_password]').val()
                 },
                 success : function (data) {
-
                     console.log(data);
 
                     if (data == 1) {
                         window.location.href='main2.php';
-                    }  else {
+                    } else {
                         alert(data);
                     }
                 }
-            })
+            });
             return false;
         });
     });
