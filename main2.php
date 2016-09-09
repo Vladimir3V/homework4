@@ -77,8 +77,7 @@ $a->getInfo($_SESSION['id']);
                     id=""
                     cols="30"
                     rows="10"
-                ><?php echo $_SESSION['about'] ?>
-                </textarea>
+                ><?php echo $_SESSION['about'] ?></textarea>
             </p>
             <input type="submit" name="Login" value="Обновить данные" />
         </form>
