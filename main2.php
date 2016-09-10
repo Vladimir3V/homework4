@@ -6,6 +6,7 @@
  * Time: 16:45
  */
 session_start();
+
 require_once 'get_data_form_db.php';
 require_once 'add_user_info.php';
 require_once 'image.php';

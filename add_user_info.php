@@ -71,7 +71,7 @@ class AddUserInfo
      * @param $id
      */
     public function addNameAgeAbout(
-        $username,
+        $username,//зачем столько параметров в метод удобнее передать массив
         $password,
         $name,
         $age,
@@ -83,9 +83,10 @@ class AddUserInfo
             } else {
                 $username = strip_tags($username);
                 $password = strip_tags($password);
-                $name   = strip_tags($name);
-                $age    = strip_tags($age);
-                $about  = strip_tags($about);
+                $name     = strip_tags($name);
+                $age      = strip_tags($age);
+                $about    = strip_tags($about);
+
                 $db = new mysqli(
                     $GLOBALS['host'],
                     $GLOBALS['login'],

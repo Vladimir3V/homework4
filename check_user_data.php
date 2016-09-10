@@ -15,7 +15,7 @@ class CheckUserData
     public $user_password = 'password';
 
     /**
-     * ПРоверяет пользователя и пароль
+     * Проверяет пользователя и пароль
      * @param $user_login
      * @param $user_password
      */
