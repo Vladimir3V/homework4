@@ -11,20 +11,34 @@ require_once 'get_data_form_db.php';
 require_once 'add_user_info.php';
 require_once 'image.php';
 
+if (!isset($_SESSION['id'])) {
+    echo '<script type="text/javascript">
+              window.location = "index.html"
+          </script>';
+}
+
 $b = new AddUserInfo;
-$b->addNameAgeAbout(
-    $_POST['Username'],
-    $_POST['Password'],
-    $_POST['Name'],
-    $_POST['Age'],
-    $_POST['About'],
-    $_SESSION ['id']
-);
+$b->addNameAgeAbout($_POST, $_SESSION ['id']);
+$b->delUser($_POST['DeletUser'], $_SESSION ['id']);
 $a = new GetDataFormDB();
 $a->getInfo($_SESSION['id']);
 
+$dir = scandir('photos/');
+echo '<br>';
+foreach ($dir as $key=>$value) {
+    if ($value   == '.'
+        || $value  == '..'
+        || $value  == '.DS_Store'
+    ) {
 
+        unset($dir[$key]);
+    }
+}
 
+$c = new Image();
+$c->createFolder();
+$c->addImageToFolder($_FILES, $_SESSION['id'], $_POST['loadimage']);
+$c->deleteImage($_POST['DelFile']);
 ?>
 
 <!DOCTYPE html>
@@ -82,35 +96,58 @@ $a->getInfo($_SESSION['id']);
             </p>
             <input type="submit" name="Login" value="Обновить данные" />
         </form>
+        <form action="" method="post">
+            <input type="submit" name="DeletUser" value="Удалить аккаунт" />
+
+        </form>
         <br /><br />
         <form action="" method="post" enctype="multipart/form-data">
             Выберерте картинку для загрузки:
             <input type="file" name="img" id="img">
             <p><input type="submit" value="Загрузите файл" name="loadimage"></p>
-        </form>
-        <br />
-        <p> Переимеовать файл</p>
-        <form action="" method="post">
-            <p>Старое имя файла: <input title="" type="text" name="OldName" /></p>
-            <p> Новое имя файла: <input title="" type="text" name="NewName"  /></p>
-            <input type="submit" name="nameupdae" value="Обновить имя файла" />
-        </form>
-
-        <br />
-        <p> Удалить файл</p>
-        <form action="" method="post">
-            <p>Имя файла для удаления:
-                <input title="" type="text" name="DelFile" />
-            </p>
-            <input type="submit" name="deldel" value="Удалить файл" />
-        </form>
     </div>
 </div>
-
+Список файлов в папке с фотографиями:
+</div>
+<table>
+    <tr>
+        <th>Название файла</th>
+        <th>Управление</th>
+    </tr>
+    <?php foreach($dir as $key=>$value) :?>
+        <tr>
+            <td>
+                <div>
+                    <?php echo $value; ?>
+                </div>
+            </td>
+            <td>
+                <form action="newname.php" method="post">
+                    <button
+                        type  = "submit"
+                        name  = "OldName"
+                        value = "<?php echo $value; ?>"
+                    >Переименовать</button>
+                </form>
+            </td>
+            <td>
+                <form action="" method="post">
+                    <button
+                        type  = "submit"
+                        name  = "DelFile"
+                        value = "<?php echo $value; ?>"
+                    >Удалить файл</button>
+                </form>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+</table>
 </body>
 </html>
 
 <?php
+var_dump($_POST);
+
 
 if (isset($_POST["Logout"])) {
     unset($_SESSION["id"]);
@@ -119,28 +156,12 @@ if (isset($_POST["Logout"])) {
               window.location = "index.html"
           </script>';
 }
-
-if (!isset($_SESSION['id'])) {
-    echo '<script type="text/javascript">
-              window.location = "index.html"
-          </script>';
-}
-
-$c = new Image();
-$c->createFolder();
-$c->addImageToFolder($_FILES, $_SESSION['id'], $_POST['loadimage']);
-$c->renameFile($_POST['OldName'], $_POST['NewName']);
-$c->deleteImage($_POST['DelFile']);
-
-echo 'Список файлов в папке с фотографиями: <br>';
-$dir = scandir('photos/');//возвращает false об этом не подумал --- Да, не подумал / Попарвил
-
-foreach ($dir as $key) {
-    if ($key == '.' || $key == '..') {//psr-2 - поправил
-    } else {
-        echo $key, '<br>';
-    }
-}
 ?>
+
+
+
+
+
+
 
 

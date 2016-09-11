@@ -14,7 +14,13 @@ class GetDataFormDB
      * ПОлучает данные о юзере из базы
      * @param $u_id
      */
+
+
     public function getInfo($u_id)//методы тоже
+        // --- нет не верно в PSR-1 написано что
+// /Class names MUST be declared in StudlyCaps
+//Method names MUST be declared in camelCase()
+// Можешь посмтореть как в справочнике PSR2 в примерах методы называют
     {
         $db = new mysqli(
             $GLOBALS['host'],
@@ -38,5 +44,6 @@ class GetDataFormDB
         $_SESSION ['name']     = $record ['name'];
         $_SESSION ['age']      = $record ['age'];
         $_SESSION ['about']    = $record ['about'];
+        return $_SESSION;
     }
 }

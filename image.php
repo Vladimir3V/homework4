@@ -1,5 +1,8 @@
 <?php
-require_once 'Connection.php';
+
+require 'vendor/autoload.php';
+use Intervention\Image\ImageManagerStatic as Imageres;
+
 /**
  * Created by PhpStorm.
  * User: vladimirvahrusev
@@ -59,8 +62,6 @@ class Image
      */
     public function renameFile($oldname, $newname)
     {
-        var_dump($oldname);
-        var_dump($newname);
         if (isset($oldname) || isset($newname)) {
             if (empty($oldname) || empty($newname)) {
 
@@ -85,7 +86,6 @@ class Image
                     "select id from photos where file = '$oldname' "
                 );
                 $record = $res->fetch_assoc();
-                var_dump($record);
 
                 $target_dir = "photos/";
                 $target_old = $target_dir . basename($oldname);
@@ -101,6 +101,9 @@ class Image
                     $record ['id']
                 );
                 $stmt->execute();
+                echo '<script type="text/javascript">
+                    window.location = "main2.php"
+                </script>';
             }
         }
     }
@@ -113,6 +116,7 @@ class Image
      */
     public function addImageToFolder($img, $id, $postic)
     {
+
         if (isset($postic)) {
             $target_dir = "photos/";
             $target_file = $target_dir . basename($img["img"]["name"]);
@@ -127,7 +131,6 @@ class Image
                     echo "Это не картинка ";
                     $status = false;
                 }
-
                 if (file_exists($target_file)) {
                     echo "Такой файл уже есть <br><br>";
                     $status = false;
@@ -142,14 +145,15 @@ class Image
                     $status = false;
                 }
 
-                $im = imagecreatetruecolor($check [0], $check [1]);
-                $ooo = imagejpeg($im, $target_file, 100);
                 if ($status) {
                     if (move_uploaded_file(
                         $img["img"]["tmp_name"],
                         $target_file
                     )
                     ) {
+                        $imge = Imageres::make($target_file)
+                            ->resize($check[0], $check[1])->save($target_file);
+
                         echo
                             "Файл "
                             . basename($img["img"]["name"])
@@ -183,3 +187,6 @@ class Image
         }
     }
 }
+
+
+
