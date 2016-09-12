@@ -25,7 +25,7 @@ $a->getInfo($_SESSION['id']);
 
 $dir = scandir('photos/');
 echo '<br>';
-foreach ($dir as $key=>$value) {
+foreach ($dir as $key=>$value) {//psr-2
     if ($value   == '.'
         || $value  == '..'
         || $value  == '.DS_Store'
@@ -114,11 +114,12 @@ $c->deleteImage($_POST['DelFile']);
         <th>Название файла</th>
         <th>Управление</th>
     </tr>
-    <?php foreach($dir as $key=>$value) :?>
+
+    <?php foreach(array_values($dir) as $key=>$value) ://psr-2?>
         <tr>
             <td>
                 <div>
-                    <?php echo $value; ?>
+                    <?php echo $value;?>
                 </div>
             </td>
             <td>
@@ -130,6 +131,7 @@ $c->deleteImage($_POST['DelFile']);
                     >Переименовать</button>
                 </form>
             </td>
+
             <td>
                 <form action="" method="post">
                     <button
