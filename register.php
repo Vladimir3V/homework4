@@ -1,3 +1,13 @@
+<?php
+session_start();
+if (isset($_SESSION['id'])) {
+    echo '<script type="text/javascript">
+    window.location = "index.html"
+</script>';
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

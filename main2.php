@@ -105,6 +105,7 @@ $c->deleteImage($_POST['DelFile']);
             Выберерте картинку для загрузки:
             <input type="file" name="img" id="img">
             <p><input type="submit" value="Загрузите файл" name="loadimage"></p>
+        </form>
     </div>
 </div>
 Список файлов в папке с фотографиями:
