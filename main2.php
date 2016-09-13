@@ -25,7 +25,7 @@ $a->getInfo($_SESSION['id']);
 
 $dir = scandir('photos/');
 echo '<br>';
-foreach ($dir as $key=>$value) {
+foreach ($dir as $key => $value) {
     if ($value   == '.'
         || $value  == '..'
         || $value  == '.DS_Store'
@@ -115,7 +115,7 @@ $c->deleteImage($_POST['DelFile']);
         <th>Название файла</th>
         <th>Управление</th>
     </tr>
-    <?php foreach($dir as $key=>$value) :?>
+    <?php foreach($dir as $key => $value) :?>
         <tr>
             <td>
                 <div>
@@ -147,8 +147,6 @@ $c->deleteImage($_POST['DelFile']);
 </html>
 
 <?php
-var_dump($_POST);
-
 
 if (isset($_POST["Logout"])) {
     unset($_SESSION["id"]);

@@ -7,7 +7,7 @@ require_once 'Connection.php';
  * Date: 05.09.16
  * Time: 22:18
  */
-//по psr-2 класы пишутся так GetDataFormDB
+
 class GetDataFormDB
 {
     /**
@@ -16,11 +16,7 @@ class GetDataFormDB
      */
 
 
-    public function getInfo($u_id)//методы тоже
-        // --- нет не верно в PSR-1 написано что
-// /Class names MUST be declared in StudlyCaps
-//Method names MUST be declared in camelCase()
-// Можешь посмтореть как в справочнике PSR2 в примерах методы называют
+    public function getInfo($u_id)
     {
         $db = new mysqli(
             $GLOBALS['host'],
